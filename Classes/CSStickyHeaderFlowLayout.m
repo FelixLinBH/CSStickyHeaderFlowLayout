@@ -214,9 +214,10 @@ static const NSInteger kHeaderZIndex = 1024;
 }
 
 - (void)setParallaxHeaderScroller:(UIView *)parallaxHeaderScroller{
+    _parallaxHeaderAlwaysOnTop = YES;
     _parallaxHeaderScroller = parallaxHeaderScroller;
     _parallaxHeaderMinimumReferenceSize = _parallaxHeaderReferenceSize;
-    
+    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(_parallaxHeaderReferenceSize.height, 0, 0, 0);
     UIGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
     [_parallaxHeaderScroller addGestureRecognizer:recognizer];
 }
@@ -303,6 +304,7 @@ static const NSInteger kHeaderZIndex = 1024;
         _parallaxHeaderMinimumReferenceSize.height += distance;
         _parallaxHeaderReferenceSize.height += distance;
         _tempPostion = translation;
+        self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(_parallaxHeaderReferenceSize.height, 0, 0, 0);
         [self invalidateLayout];
         
     }
