@@ -213,6 +213,16 @@ static const NSInteger kHeaderZIndex = 1024;
     [self invalidateLayout];
 }
 
+- (void)setParallaxHeaderScroller:(UIView *)parallaxHeaderScroller{
+    _parallaxHeaderScroller = parallaxHeaderScroller;
+    _parallaxHeaderMinimumReferenceSize = _parallaxHeaderReferenceSize;
+    
+    UIGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
+    [_parallaxHeaderScroller addGestureRecognizer:recognizer];
+}
+
+
+
 #pragma mark Helper
 
 - (void)updateHeaderAttributes:(UICollectionViewLayoutAttributes *)attributes lastCellAttributes:(UICollectionViewLayoutAttributes *)lastCellAttributes
@@ -279,6 +289,23 @@ static const NSInteger kHeaderZIndex = 1024;
         self.disableStretching && height > maxHeight ? maxHeight : height,
     };
     
+}
+
+- (void)handlePan:(UIPanGestureRecognizer *)recognizer {
+    
+    CGPoint translation = [recognizer translationInView:_parallaxHeaderScroller.superview];
+    
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        _tempPostion = translation;
+    }
+    if (recognizer.state == UIGestureRecognizerStateChanged) {
+        CGFloat distance = translation.y - _tempPostion.y;
+        _parallaxHeaderMinimumReferenceSize.height += distance;
+        _parallaxHeaderReferenceSize.height += distance;
+        _tempPostion = translation;
+        [self invalidateLayout];
+        
+    }
 }
 
 @end

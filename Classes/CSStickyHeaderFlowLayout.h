@@ -28,5 +28,6 @@ extern NSString *const CSStickyHeaderParallaxHeader;
 @property (nonatomic) BOOL parallaxHeaderAlwaysOnTop;
 @property (nonatomic) BOOL disableStickyHeaders;
 @property (nonatomic) BOOL disableStretching;
-
+@property (nonatomic) UIView *parallaxHeaderScroller;
+@property (nonatomic) CGPoint tempPostion;
 @end
