@@ -115,8 +115,10 @@ Configuring other effects are really just the way how you setup the header cell,
 @property (nonatomic) CGSize parallaxHeaderReferenceSize;
 @property (nonatomic) CGSize parallaxHeaderMinimumReferenceSize;
 @property (nonatomic) BOOL disableStickyHeaders;
+@property (nonatomic) UIView *parallaxHeaderScroller;
 ```
 
+Setting parallaxHeaderScroller,the sticky header will move with scroller.
 Run the project examples and it'll shows you exactly how you achieve different effects.
 
 ![](http://f.cl.ly/items/313D2n3R0H0e0x090B3X/different-header.jpeg)
